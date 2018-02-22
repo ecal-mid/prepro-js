@@ -1,5 +1,7 @@
-import ColorsView from './colors';
-import TimelineView from './timeline'
+import ColorsView from './services/colors';
+import OpenposeView from './services/openpose';
+import TimelineView from './timeline';
+
 
 class View {
   constructor(container) {
@@ -14,6 +16,7 @@ class View {
     this.el.classList.add('prepro-view', 'prepro-reactive');
     this.el.innerHTML = `
       <div class="prepro-timeline-cursor"></div>
+      <div class="prepro-timeline-cursor-bg"></div>
       <div class="prepro-services"></div>
     `;
     container.append(this.el);
@@ -22,17 +25,19 @@ class View {
 
     const serviceEl = this.el.querySelector('.prepro-services');
     this.colorsView = new ColorsView(serviceEl);
+    this.openposeView = new OpenposeView(serviceEl);
 
     this.pct_ = 0;
     this.interval_ = false;
     this.framerate_ = 0;
 
-    this.setupAutoHide_(2000);
+    // this.setupAutoHide_(2000);
   }
 
   setup(src, config) {
     this.src = src;
     this.framerate_ = config.framerate_;
+    this.showFrameDetails(prepro.getCurrentFrame());
   }
 
   play() {
@@ -55,7 +60,8 @@ class View {
   }
 
   showFrameDetails(frame) {
-    this.colorsView.colors = frame.colors;
+    this.colorsView.show(frame.colors);
+    this.openposeView.show(frame.openpose);
   }
 
   set pct(val) {

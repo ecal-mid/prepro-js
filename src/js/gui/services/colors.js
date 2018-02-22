@@ -7,7 +7,7 @@ class ColorsView {
     container.appendChild(this.el);
   }
 
-  set colors(colors) {
+  show(colors) {
     this.el.innerHTML = tpl({colors: colors});
   }
 }

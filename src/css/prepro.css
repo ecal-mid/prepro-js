@@ -33,45 +33,59 @@
 .prepro-view {
   z-index: 999;
   position: absolute;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
   width: 100%;
   height: 15%;
-  min-height: 50px;
+  min-height: 150px;
   background: rgba(80, 80, 80, 0.5);
   bottom: 0;
 }
 
-.prepro-timeline-cursor {
+.prepro-timeline-cursor, .prepro-timeline-cursor-bg {
+  position: absolute;
   background: rgba(255, 255, 255, 0.75);
-  height: 10%;
+  height: 1em;
   width: 0;
+  bottom: 0;
+}
+
+.prepro-timeline-cursor-bg {
+  width: 100%;
+  background: rgba(80, 80, 80, 0.5);
 }
 
 .prepro-services {
-  display: flex;
-  flex-grow: 1;
+  height: 100%;
+  padding: 2em 1em 2em;
 }
 
 .prepro-block {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
+  display: inline-block;
   height: 100%;
+  margin-right: 1em;
+}
+
+.prepro-services .prepro-title {
+  position: absolute;
+  margin-top:-2em;
 }
 
 /** SERVICES **/
 
 /* Color */
 .prepro-colors {
-
 }
-
 .prepro-palette {
   display: flex;
 }
-
 .prepro-color {
-  width: 20%;
+  width: 25px;
   height: 100%;
+}
+
+/* Open Pose */
+.prepro-openpose canvas {
+  height: 100%;
+  width: auto;
 }

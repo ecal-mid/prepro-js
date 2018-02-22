@@ -109,7 +109,5 @@ class Prepro {
 const el = document.getElementById('prepro');
 el.classList.add('prepro-container');
 window.prepro = new Prepro(el);
-//
-// console.log(prepro);
-//
+
 module.exports = Prepro;
