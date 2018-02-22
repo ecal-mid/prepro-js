@@ -9,14 +9,10 @@ const DEFAULT_CONFIG_FILENAME = 'prepro.json';
 const DEFAULT_VIDEO_FILENAME = 'source.mov';
 
 class Prepro {
-  constructor(el) {
+  constructor() {
     this.services = {};
     this.frames = [];
     this.config = {};
-    if (el) {
-      this.el = el;
-      this.view = new View(this.el);
-    }
   }
 
   /**
@@ -30,13 +26,11 @@ class Prepro {
           .then((data) => data.json())
           .then((config) => {
             this.config = config;
+            this.config['folder'] = folder;
             loadAll(folder, config)
                 .then((data) => {
                   this.setupServices_(data);
-                  if (this.view) {
-                    this.view.setup(
-                        folder + '/' + DEFAULT_VIDEO_FILENAME, config);
-                  }
+                  this.addView('#prepro');
                   resolve();
                 })
                 .catch(reject);
@@ -45,9 +39,26 @@ class Prepro {
   }
 
   /**
+   * Add a view.
+   * @param {Element|String} el View container element or query selector.
+   */
+  addView(el) {
+    if (typeof el == 'string') {
+      el = document.querySelector(el);
+    }
+    const videoFile = this.config.folder + '/' + DEFAULT_VIDEO_FILENAME;
+    this.view = new View(el);
+    this.view.setup(videoFile, this.config);
+  }
+
+  /**
    * Starts playback.
    */
   play() {
+    if (!this.view) {
+      console.warn('No view created. Have you called prepro.addView(el)?');
+      return null;
+    }
     this.view.play();
   }
 
@@ -55,6 +66,10 @@ class Prepro {
    * Pause playback.
    */
   pause() {
+    if (!this.view) {
+      console.warn('No view created. Have you called prepro.addView(el)?');
+      return null;
+    }
     this.view.pause();
   }
 
@@ -63,6 +78,10 @@ class Prepro {
    * @return {Dictionary} The snapshot
    */
   getCurrentFrame() {
+    if (!this.view) {
+      console.warn('No view created. Have you called prepro.addView(el)?');
+      return null;
+    }
     const frameNum = Math.floor(this.view.pct * this.config.totalframes);
     const frame = {frame: frameNum};
     const servicesNames = this.config.services.map((s) => s.name);
