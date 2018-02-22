@@ -33,7 +33,7 @@ class View {
     this.interval_ = false;
     this.framerate_ = 0;
 
-    // this.setupAutoHide_(2000);
+    this.setupAutoHide_(2000);
   }
 
   setup(src, config) {

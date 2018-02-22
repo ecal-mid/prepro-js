@@ -23,7 +23,7 @@ class SpectrogramView {
 
     ctx.beginPath();
     ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
     ctx.lineWidth = 3;
 
     const coords = (i) => {

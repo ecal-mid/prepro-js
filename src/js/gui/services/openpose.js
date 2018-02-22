@@ -20,9 +20,9 @@ class OpenposeView {
     const ctx = this.ctx;
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-    ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+    ctx.strokeStyle = 'rgba(255,255,255, 0.75)';
     ctx.lineWidth = 4;
-    ctx.rect(2, 2, ctx.canvas.width - 4, ctx.canvas.height - 4);
+    ctx.rect(3, 3, ctx.canvas.width - 3 * 2, ctx.canvas.height - 3 * 2);
     ctx.stroke();
 
     ctx.fillStyle = 'white';
@@ -39,7 +39,7 @@ class OpenposeView {
         const x = pts[i * 3];
         const y = pts[i * 3 + 1];
         const c = pts[i * 3 + 2];
-        ctx.fillStyle = `rgba(255, 255, 255, ${c * 2})`;
+        ctx.fillStyle = `rgba(255, 255, 255, ${c})`;
         ctx.beginPath();
         ctx.arc(x, y, 5, 0, 2 * Math.PI);
         ctx.fill();
@@ -55,7 +55,7 @@ class OpenposeView {
         for (let pi of j) {
           const c = pts[pi * 3 + 2];
           if (c > 0.1) {
-            ctx.strokeStyle = `rgba(255, 255, 255, ${c * 3})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${c})`;
             ctx.lineTo(pts[pi * 3], pts[pi * 3 + 1]);
           }
         }
