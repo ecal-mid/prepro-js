@@ -1,30 +1,5 @@
 import ColorsView from './colors';
-
-class TimelineView {
-  constructor(container) {
-    this.container = container;
-    this.cursor = container.querySelector('.prepro-timeline-cursor');
-    container.addEventListener(
-        'mouseover', this.onMouseOver_.bind(this), false);
-    container.addEventListener(
-        'mousemove', this.onMouseMove_.bind(this), false);
-  }
-
-  update(pct) {
-    this.cursor.style.width = pct * 100 + '%';
-  }
-
-  /* PRIVATE */
-
-  onMouseMove_(event) {
-    const pct = event.clientX / this.container.clientWidth;
-    prepro.view.pct = pct;
-  }
-
-  onMouseOver_(event) {
-    prepro.view.pause();
-  }
-}
+import TimelineView from './timeline'
 
 class View {
   constructor(container) {
@@ -62,7 +37,6 @@ class View {
 
   play() {
     this.video.play();
-    this.video.playbackRate = 0.5;
     this.interval_ =
         setInterval(this.update.bind(this), 1000 / this.framerate_);
   }
@@ -76,8 +50,8 @@ class View {
     this.pct_ = this.video.currentTime / this.video.duration;
     if (!isNaN(this.pct_)) {
       this.timeline.update(this.pct_);
+      this.showFrameDetails(prepro.getCurrentFrame());
     }
-    this.showFrameDetails(prepro.getCurrentFrame());
   }
 
   showFrameDetails(frame) {

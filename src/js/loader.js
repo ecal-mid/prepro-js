@@ -22,7 +22,8 @@ function loadAll(folder, config) {
         case 'json':
           return loadJSON(folder + '/' + s.path)
               .then((json) => data[s.name] = json);
-        case 'image':
+        case 'png':
+        case 'jpg':
           return loadImage(folder + '/' + s.path)
               .then((image) => data[s.name] = image);
       }

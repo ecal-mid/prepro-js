@@ -86,7 +86,9 @@ class Prepro {
     const frame = {frame: frameNum};
     const servicesNames = this.config.services.map((s) => s.name);
     for (let service of servicesNames) {
-      frame[service] = this.services[service].getFrame(frameNum);
+      if (this.services[service]) {
+        frame[service] = this.services[service].getFrame(frameNum);
+      }
     }
     return frame;
   }

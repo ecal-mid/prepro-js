@@ -1,7 +1,7 @@
 <html>
 
   <head>
-    <title>Prepro Example</title>
+    <title>Prepro Basic Example</title>
     <style>
       @import url('../../build/prepro.min.css');
 
@@ -29,9 +29,9 @@
     <script src="../../build/prepro.min.js"></script>
     <script>
       function setup() {
-        console.log(prepro.getCurrentFrame());
+        prepro.play();
       }
-      prepro.load('../data/test_video_micro').then(setup);
+      prepro.load('../data/test_video_small').then(setup);
     </script>
   </body>
 
