@@ -1,5 +1,6 @@
 import ColorsView from './services/colors';
 import OpenposeView from './services/openpose';
+import SpectrogramView from './services/spectrogram';
 import TimelineView from './timeline';
 
 
@@ -26,6 +27,7 @@ class View {
     const serviceEl = this.el.querySelector('.prepro-services');
     this.colorsView = new ColorsView(serviceEl);
     this.openposeView = new OpenposeView(serviceEl);
+    this.spectrogramView = new SpectrogramView(serviceEl);
 
     this.pct_ = 0;
     this.interval_ = false;
@@ -62,6 +64,7 @@ class View {
   showFrameDetails(frame) {
     this.colorsView.show(frame.colors);
     this.openposeView.show(frame.openpose);
+    this.spectrogramView.show(frame.spectrogram);
   }
 
   set pct(val) {

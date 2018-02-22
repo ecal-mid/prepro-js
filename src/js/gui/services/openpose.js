@@ -20,9 +20,10 @@ class OpenposeView {
     const ctx = this.ctx;
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-    ctx.fillStyle = 'rgba(0,0,0,0.2)';
-    ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height);
-    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.5)';
+    ctx.lineWidth = 4;
+    ctx.rect(2, 2, ctx.canvas.width - 4, ctx.canvas.height - 4);
+    ctx.stroke();
 
     ctx.fillStyle = 'white';
     const joints = [
@@ -38,13 +39,13 @@ class OpenposeView {
         const x = pts[i * 3];
         const y = pts[i * 3 + 1];
         const c = pts[i * 3 + 2];
-        ctx.fillStyle = `rgba(255, 255, 255, ${c})`;
+        ctx.fillStyle = `rgba(255, 255, 255, ${c * 2})`;
         ctx.beginPath();
         ctx.arc(x, y, 5, 0, 2 * Math.PI);
         ctx.fill();
       }
 
-      ctx.lineWidth = 5;
+      ctx.lineWidth = 8;
       for (let j of joints) {
         ctx.beginPath();
         const c = pts[j[0] * 3 + 2];
@@ -54,7 +55,7 @@ class OpenposeView {
         for (let pi of j) {
           const c = pts[pi * 3 + 2];
           if (c > 0.1) {
-            ctx.strokeStyle = `rgba(127, 127, 127, ${c})`;
+            ctx.strokeStyle = `rgba(255, 255, 255, ${c * 3})`;
             ctx.lineTo(pts[pi * 3], pts[pi * 3 + 1]);
           }
         }
