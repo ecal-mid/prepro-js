@@ -1,0 +1,38 @@
+<html>
+
+  <head>
+    <title>Prepro Example</title>
+    <style>
+      @import url('../../build/prepro.min.css');
+
+      html,
+      body {
+        height: 100%;
+        padding:0;
+        margin:0;
+        overflow: hidden;
+        background: black;
+      }
+
+      #prepro {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="prepro"></div>
+    <script src="../../build/prepro.min.js"></script>
+    <script>
+      function setup() {
+        console.log(prepro.getCurrentFrame());
+      }
+      prepro.load('../data/test_video_micro').then(setup);
+    </script>
+  </body>
+
+</html>

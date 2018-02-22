@@ -1,0 +1,4 @@
+.DS_Store
+examples/data
+node_modules
+yarn.lock
