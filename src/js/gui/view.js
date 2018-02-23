@@ -33,7 +33,8 @@ class View {
     this.interval_ = false;
     this.framerate_ = 0;
 
-    this.setupAutoHide_(2000);
+    // this.setupAutoHide_(2000);
+    window.addEventListener('resize', this.onVideoResize_.bind(this));
   }
 
   setup(src, config) {
@@ -88,6 +89,10 @@ class View {
     } else {
       this.pause();
     }
+  }
+
+  onVideoResize_(evt) {
+    this.openposeView.resize();
   }
 
   setupAutoHide_(delay) {

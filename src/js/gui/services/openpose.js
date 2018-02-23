@@ -17,7 +17,12 @@ class OpenposeView {
     if (!data) {
       return;
     }
+
     const ctx = this.ctx;
+
+    ctx.canvas.width =
+        ctx.canvas.height * prepro.config.width / prepro.config.height;
+
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     ctx.strokeStyle = 'rgba(255,255,255, 0.75)';
@@ -62,6 +67,12 @@ class OpenposeView {
         ctx.stroke();
       }
     }
+  }
+
+  resize() {
+    const w = this.ctx.canvas.clientHeight * prepro.config.width /
+        prepro.config.height;
+    this.ctx.canvas.style.width = w + 'px';
   }
 }
 
