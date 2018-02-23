@@ -1,5 +1,3 @@
-const data = {};
-
 function loadJSON(path) {
   return fetch(path).then((data) => data.json());
 }

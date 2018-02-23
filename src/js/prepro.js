@@ -8,7 +8,13 @@ import Spectrogram from './services/spectrogram';
 const DEFAULT_CONFIG_FILENAME = 'prepro.json';
 const DEFAULT_VIDEO_FILENAME = 'source.mov';
 
+/**
+ * Main Prepro class
+ */
 class Prepro {
+  /**
+   * Instanciate the Prepro class.
+   */
   constructor() {
     this.services = {};
     this.frames = [];
@@ -57,7 +63,7 @@ class Prepro {
   play() {
     if (!this.view) {
       console.warn('No view created. Have you called prepro.addView(el)?');
-      return null;
+      return;
     }
     this.view.play();
   }
@@ -68,7 +74,7 @@ class Prepro {
   pause() {
     if (!this.view) {
       console.warn('No view created. Have you called prepro.addView(el)?');
-      return null;
+      return;
     }
     this.view.pause();
   }

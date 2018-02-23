@@ -29,8 +29,8 @@ class SpectrogramView {
     const coords = (i) => {
       return {
         x: i / data.length * ctx.canvas.width,
-            y: (1 - data[i]) * ctx.canvas.height
-      }
+        y: (1 - data[i]) * ctx.canvas.height,
+      };
     };
 
     const start = coords(0);

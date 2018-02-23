@@ -32,5 +32,5 @@ class Colors {
 
 module.exports = {
   Palette,
-  Colors
+  Colors,
 };

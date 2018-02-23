@@ -32,11 +32,16 @@ class OpenposeView {
 
     ctx.fillStyle = 'white';
     const joints = [
-      [0, 1],           // neck
-      [1, 2, 3, 4],     // left shoulder & arm
-      [1, 5, 6, 7],     // right shoulder & arm
-      [1, 8, 9, 10],    // left body & leg
-      [1, 11, 12, 13],  // right body & leg
+      // neck
+      [0, 1],
+      // left shoulder & arm
+      [1, 2, 3, 4],
+      // right shoulder & arm
+      [1, 5, 6, 7],
+      // left body & leg
+      [1, 8, 9, 10],
+      // right body & leg
+      [1, 11, 12, 13],
     ];
     for (let pose of data) {
       const pts = pose['pose_keypoints'];
