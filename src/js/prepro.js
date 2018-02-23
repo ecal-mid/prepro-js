@@ -19,6 +19,7 @@ class Prepro {
     this.services = {};
     this.frames = [];
     this.config = {};
+    this.data = [];
   }
 
   /**
@@ -35,6 +36,7 @@ class Prepro {
             this.config['folder'] = folder;
             loadAll(folder, config)
                 .then((data) => {
+                  this.data = data;
                   this.setupServices_(data);
                   this.addView('#prepro');
                   resolve();
@@ -90,11 +92,8 @@ class Prepro {
     }
     const frameNum = Math.floor(this.view.pct * this.config.totalframes);
     const frame = {frame: frameNum};
-    const servicesNames = this.config.services.map((s) => s.name);
-    for (let service of servicesNames) {
-      if (this.services[service]) {
-        frame[service] = this.services[service].getFrame(frameNum);
-      }
+    for (let service in this.services) {
+      frame[service] = this.services[service].getFrame(frameNum);
     }
     return frame;
   }

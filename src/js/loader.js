@@ -16,14 +16,18 @@ function loadAll(folder, config) {
   return new Promise((resolve, reject) => {
     const data = {};
     const loaders = config.services.map((s) => {
+      const name = s.name.split('2').pop();
+      if (['openpose', 'colors', 'spectrogram'].indexOf(name) == -1) {
+        return;
+      }
       switch (s.type) {
         case 'json':
           return loadJSON(folder + '/' + s.path)
-              .then((json) => data[s.name] = json);
+              .then((json) => data[name] = json);
         case 'png':
         case 'jpg':
           return loadImage(folder + '/' + s.path)
-              .then((image) => data[s.name] = image);
+              .then((image) => data[name] = image);
       }
     });
     Promise.all(loaders).then(() => resolve(data)).catch((err) => {
