@@ -6,6 +6,7 @@
   },
   "rules": {
     "guard-for-in": 0,
-    "require-jsdoc": 0
+    "require-jsdoc": 0,
+    "no-unused-vars": 1
   }
 }
