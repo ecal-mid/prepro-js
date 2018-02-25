@@ -30,7 +30,4 @@ class Colors {
   }
 }
 
-module.exports = {
-  Palette,
-  Colors,
-};
+module.exports = Colors;

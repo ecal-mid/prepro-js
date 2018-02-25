@@ -1,8 +1,15 @@
 import ColorsView from './services/colors';
+import FlowView from './services/flow';
 import OpenposeView from './services/openpose';
 import SpectrogramView from './services/spectrogram';
 import TimelineView from './timeline';
 
+const viewClasses = {
+  'colors': ColorsView,
+  'openpose': OpenposeView,
+  'spectrogram': SpectrogramView,
+  'flow': FlowView,
+};
 
 class View {
   constructor(container) {
@@ -24,16 +31,13 @@ class View {
 
     this.timeline = new TimelineView(this.el);
 
-    const serviceEl = this.el.querySelector('.prepro-services');
-    this.colorsView = new ColorsView(serviceEl);
-    this.openposeView = new OpenposeView(serviceEl);
-    this.spectrogramView = new SpectrogramView(serviceEl);
+    this.servicesViews_ = {};
 
     this.pct_ = 0;
     this.interval_ = false;
     this.framerate_ = 0;
 
-    // this.setupAutoHide_(2000);
+    this.setupAutoHide_(2000);
     window.addEventListener('resize', this.onVideoResize_.bind(this));
   }
 
@@ -63,9 +67,17 @@ class View {
   }
 
   showFrameDetails(frame) {
-    this.colorsView.show(frame.colors);
-    this.openposeView.show(frame.openpose);
-    this.spectrogramView.show(frame.spectrogram);
+    for (let serviceName in frame) {
+      if (!this.servicesViews_[serviceName]) {
+        const ServiceViewClass = viewClasses[serviceName];
+        if (!ServiceViewClass) {
+          continue;
+        }
+        const serviceEl = this.el.querySelector('.prepro-services');
+        this.servicesViews_[serviceName] = new ServiceViewClass(serviceEl);
+      }
+      this.servicesViews_[serviceName].show(frame[serviceName]);
+    }
   }
 
   set pct(val) {
@@ -83,6 +95,10 @@ class View {
     this.video.src = source;
   }
 
+  getServiceView(serviceName) {
+    return this.servicesViews_[serviceName];
+  }
+
   onVideoClicked_(evt) {
     if (this.video.paused) {
       this.play();
@@ -92,7 +108,12 @@ class View {
   }
 
   onVideoResize_(evt) {
-    this.openposeView.resize();
+    for (let serviceView in this.servicesViews_) {
+      const v = this.servicesViews_[serviceView];
+      if (v.resize) {
+        v.resize();
+      }
+    }
   }
 
   setupAutoHide_(delay) {

@@ -35,7 +35,7 @@ class SpectrogramView {
 
     const start = coords(0);
     ctx.moveTo(start.x, start.y);
-    for (let i = 0; i < data.length; i += 8) {
+    for (let i = 0; i < data.length; i += 2) {
       const pt = coords(i);
       ctx.lineTo(pt.x, pt.y);
     }

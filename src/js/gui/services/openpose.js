@@ -25,11 +25,6 @@ class OpenposeView {
 
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-    ctx.strokeStyle = 'rgba(255,255,255, 0.75)';
-    ctx.lineWidth = 4;
-    ctx.rect(3, 3, ctx.canvas.width - 3 * 2, ctx.canvas.height - 3 * 2);
-    ctx.stroke();
-
     ctx.fillStyle = 'white';
     const joints = [
       // neck
