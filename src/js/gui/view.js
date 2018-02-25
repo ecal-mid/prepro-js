@@ -68,6 +68,9 @@ class View {
 
   showFrameDetails(frame) {
     for (let serviceName in frame) {
+      if (!frame[serviceName]) {
+        continue;
+      }
       if (!this.servicesViews_[serviceName]) {
         const ServiceViewClass = viewClasses[serviceName];
         if (!ServiceViewClass) {
