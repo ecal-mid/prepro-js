@@ -41,6 +41,7 @@ function loadAll(folder, config) {
             'colors',
             'spectrogram',
             'flow',
+            'segmentation',
           ].indexOf(name) == -1) {
         return;
       }

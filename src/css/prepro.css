@@ -92,7 +92,7 @@
 }
 
 /* Flow */
-.prepro-flow-status {
+.prepro-flow-status, .prepro-segmentation-status {
   font-size: 10px;
   text-transform: uppercase;
   position: absolute;
