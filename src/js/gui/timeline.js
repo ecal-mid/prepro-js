@@ -16,11 +16,11 @@ class TimelineView {
 
   onMouseMove_(event) {
     const pct = event.clientX / this.container.clientWidth;
-    prepro.view.pct = pct;
+    prepro.video.percent = pct;
   }
 
   onMouseOver_(event) {
-    prepro.view.pause();
+    prepro.video.pause();
   }
 }
 

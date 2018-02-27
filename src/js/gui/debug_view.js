@@ -13,16 +13,13 @@ const viewClasses = {
   'segmentation': SegmentationView,
 };
 
-class View {
-  constructor(container) {
-    this.video = document.createElement('video');
-    this.video.loop = true;
-    this.video.classList.add('prepro-video');
-    this.video.addEventListener(
-        'click', this.onVideoClicked_.bind(this), false);
-    container.append(this.video);
+class DebugView {
+  constructor(video, container) {
+    this.video = video;
+    this.video.addEventListener('update', this.update.bind(this));
 
     this.el = document.createElement('div');
+    // el.classList.add('prepro-container');
     this.el.classList.add('prepro-view', 'prepro-reactive');
     this.el.innerHTML = `
       <div class="prepro-timeline-cursor"></div>
@@ -35,37 +32,15 @@ class View {
 
     this.servicesViews_ = {};
 
-    this.pct_ = 0;
-    this.interval_ = false;
-    this.framerate_ = 0;
-
     this.setupAutoHide_(2000);
-    window.addEventListener('resize', this.onVideoResize_.bind(this));
-  }
+    window.addEventListener('resize', this.onWindowResize_.bind(this));
 
-  setup(src, config) {
-    this.src = src;
-    this.framerate_ = config.framerate_;
-    this.showFrameDetails(prepro.getCurrentFrame());
-  }
-
-  play() {
-    this.video.play();
-    this.interval_ =
-        setInterval(this.update.bind(this), 1000 / this.framerate_);
-  }
-
-  pause() {
-    this.video.pause();
-    clearInterval(this.interval_);
+    this.showFrameDetails(prepro.currentFrame);
   }
 
   update() {
-    this.pct_ = this.video.currentTime / this.video.duration;
-    if (!isNaN(this.pct_)) {
-      this.timeline.update(this.pct_);
-      this.showFrameDetails(prepro.getCurrentFrame());
-    }
+    this.timeline.update(this.video.percent);
+    this.showFrameDetails(prepro.currentFrame);
   }
 
   showFrameDetails(frame) {
@@ -85,34 +60,11 @@ class View {
     }
   }
 
-  set pct(val) {
-    this.pct_ = val;
-    this.video.pause();
-    this.video.currentTime = this.pct_ * this.video.duration;
-    this.update();
-  }
-
-  get pct() {
-    return this.pct_;
-  }
-
-  set src(source) {
-    this.video.src = source;
-  }
-
   getServiceView(serviceName) {
     return this.servicesViews_[serviceName];
   }
 
-  onVideoClicked_(evt) {
-    if (this.video.paused) {
-      this.play();
-    } else {
-      this.pause();
-    }
-  }
-
-  onVideoResize_(evt) {
+  onWindowResize_(evt) {
     for (let serviceView in this.servicesViews_) {
       const v = this.servicesViews_[serviceView];
       if (v.resize) {
@@ -144,4 +96,4 @@ class View {
   }
 }
 
-module.exports = View;
+module.exports = DebugView;

@@ -41,7 +41,6 @@ class Flow {
       this.currLoaded_++;
       if (this.currLoaded_ >= numFrames) {
         this.video_.removeEventListener('seeked', drawNextFrame);
-        console.log('segmentation drawn!');
       } else {
         this.video_.currentTime = this.currLoaded_ / prepro.config.framerate;
       }

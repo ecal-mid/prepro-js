@@ -46,13 +46,13 @@ class Services {
 
   /**
    * Returns services frame
-   * @param  {Integer} frameNum The frame number
+   * @param  {Integer} frameId The frame number
    * @return {Object}           The service object for each frame.
    */
-  getFrame(frameNum) {
-    const frame = {frame: frameNum};
+  getFrame(frameId) {
+    const frame = {id: frameId};
     for (let service in this.services_) {
-      frame[service] = this.services_[service].getFrame(frameNum);
+      frame[service] = this.services_[service].getFrame(frameId);
     }
     return frame;
   }

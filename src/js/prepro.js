@@ -1,6 +1,8 @@
-import View from './gui/view';
+import DebugView from './gui/debug_view';
 import loadAll from './loader';
 import Services from './services';
+import {EventDispatcher} from './utils';
+import Video from './video';
 
 const DEFAULT_CONFIG_FILENAME = 'prepro.json';
 const DEFAULT_VIDEO_FILENAME = 'source.mov';
@@ -8,16 +10,22 @@ const DEFAULT_VIDEO_FILENAME = 'source.mov';
 /**
  * Main Prepro class
  */
-class Prepro {
+class Prepro extends EventDispatcher {
   /**
    * Instanciate the Prepro class.
    */
   constructor() {
+    super();
     this.services = new Services();
     this.frames = [];
     this.config = {};
     this.data = [];
+    this.video = null;
     this.view = null;
+
+    // @private
+    this.currentFrame_ = 0;
+    this.events_ = {};
   }
 
   /**
@@ -32,11 +40,13 @@ class Prepro {
           .then((config) => {
             this.config = config;
             this.config['folder'] = folder;
+            const videoFile = folder + '/' + DEFAULT_VIDEO_FILENAME;
+            this.video = new Video(videoFile, config);
+            this.video.addEventListener('update', this.dispatch.bind(this));
             loadAll(folder, config)
                 .then((data) => {
                   this.data = data;
                   this.services.setup(data);
-                  this.addView('#prepro');
                   resolve();
                 })
                 .catch(reject);
@@ -45,57 +55,53 @@ class Prepro {
   }
 
   /**
-   * Add a view.
+   * Add video element to container.
    * @param {Element|String} el View container element or query selector.
    */
-  addView(el) {
+  showVideo(el) {
     if (typeof el == 'string') {
       el = document.querySelector(el);
     }
-    const videoFile = this.config.folder + '/' + DEFAULT_VIDEO_FILENAME;
-    this.view = new View(el);
-    this.view.setup(videoFile, this.config);
+    el.appendChild(this.video.el_);
   }
 
   /**
-   * Starts playback.
+   * Add debug view helper.
+   * @param {Element|String} el View container element or query selector.
    */
-  play() {
-    if (!this.view) {
-      console.warn('No view created. Have you called prepro.addView(el)?');
-      return;
-    }
-    this.view.play();
-  }
-
-  /**
-   * Pause playback.
-   */
-  pause() {
-    if (!this.view) {
-      console.warn('No view created. Have you called prepro.addView(el)?');
-      return;
-    }
-    this.view.pause();
+  addDebugView(el) {
+    this.view = new DebugView(this.video, el || document.body);
   }
 
   /**
    * Returns a snapshot of all the availalbe services for the current frame.
    * @return {Dictionary} The snapshot
    */
-  getCurrentFrame() {
-    if (!this.view) {
-      console.warn('No view created. Have you called prepro.addView(el)?');
-      return null;
+  get currentFrame() {
+    const frameId = this.video.currentFrame;
+    if (frameId != this.currentFrame_.id) {
+      this.currentFrame_ = this.services.getFrame(frameId);
     }
-    const frameNum = Math.floor(this.view.pct * this.config.totalframes);
-    return this.services.getFrame(frameNum);
+    return this.currentFrame_;
+  }
+
+  /**
+   * Plays the video.
+   */
+  play() {
+    this.video.play();
+  }
+
+  /**
+   * Pauses the video.
+   */
+  pause() {
+    this.video.pause();
   }
 }
 
-// TODO: TO BE MOVED
-const el = document.getElementById('prepro');
-el.classList.add('prepro-container');
-window.prepro = new Prepro(el);
+if (window) {
+  window.prepro = new Prepro();
+}
 
 module.exports = Prepro;
