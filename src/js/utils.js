@@ -19,8 +19,11 @@ class EventDispatcher {
    * @param  {*}      data    Data payload.
    */
   dispatch(event, data) {
-    for (let handler of this.handlers_[event]) {
-      handler(event, data);
+    const handlers = this.handlers_[event];
+    if (handlers) {
+      for (let handler of handlers) {
+        handler(event, data);
+      }
     }
   }
 }
