@@ -2,6 +2,7 @@ import ColorsView from './services/colors';
 import FlowView from './services/flow';
 import OpenposeView from './services/openpose';
 import SegmentationView from './services/segmentation';
+import SiftView from './services/sift';
 import SpectrogramView from './services/spectrogram';
 import TimelineView from './timeline';
 
@@ -11,6 +12,7 @@ const viewClasses = {
   'spectrogram': SpectrogramView,
   'flow': FlowView,
   'segmentation': SegmentationView,
+  'sift': SiftView,
 };
 
 class DebugView {

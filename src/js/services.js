@@ -2,6 +2,7 @@ import Colors from './services/colors';
 import Flow from './services/flow';
 import Openpose from './services/openpose';
 import Segmentation from './services/segmentation';
+import Sift from './services/sift';
 import Spectrogram from './services/spectrogram';
 
 const servicesClasses = {
@@ -10,6 +11,7 @@ const servicesClasses = {
   'spectrogram': Spectrogram,
   'flow': Flow,
   'segmentation': Segmentation,
+  'sift': Sift,
 };
 
 class Services {

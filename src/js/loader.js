@@ -42,6 +42,7 @@ function loadAll(folder, config) {
             'spectrogram',
             'flow',
             'segmentation',
+            'sift',
           ].indexOf(name) == -1) {
         return;
       }
