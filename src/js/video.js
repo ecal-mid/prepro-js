@@ -52,6 +52,11 @@ class Video extends EventDispatcher {
     this.video.src = source;
   }
 
+  get offset() {
+    const h = this.el_.videoHeight / this.el_.videoWidth * window.innerWidth;
+    return {x: 0, y: (window.innerHeight - h) * 0.5};
+  }
+
   getServiceView(serviceName) {
     return this.servicesViews_[serviceName];
   }
