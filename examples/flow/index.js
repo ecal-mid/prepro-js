@@ -57,4 +57,4 @@ function resize() {
   canvas.height = window.innerHeight;
 }
 
-prepro.load('../_data/test_video_small_new').then(setup);
+prepro.load('../_data/test-video').then(setup);
