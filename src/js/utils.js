@@ -1,4 +1,10 @@
+/**
+ * Minimalist Event Dispatcher
+ */
 class EventDispatcher {
+  /**
+   *
+   */
   constructor() {
     this.handlers_ = {};
   }
@@ -17,6 +23,7 @@ class EventDispatcher {
    * Dispatch an event.
    * @param  {string} event   Name of the event.
    * @param  {*}      data    Data payload.
+   * @protected
    */
   dispatch(event, data) {
     const handlers = this.handlers_[event];

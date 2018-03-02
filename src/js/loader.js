@@ -1,7 +1,19 @@
+/**
+ * Loads a JSON file.
+ * @memberof loader
+ * @param  {string} path The path of the image to load.
+ * @return {Promise}     A Promise resolving when the file has been loaded.
+ */
 function loadJSON(path) {
   return fetch(path).then((data) => data.json());
 }
 
+/**
+ * Loads an image.
+ * @memberof loader
+ * @param  {string} path The path of the image to load.
+ * @return {Promise}     A Promise resolving when the file has been loaded.
+ */
 function loadImage(path) {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -12,6 +24,12 @@ function loadImage(path) {
   });
 }
 
+/**
+ * Loads a video file
+ * @memberof loader
+ * @param  {string} path The path of the video to load.
+ * @return {Promise}     A Promise resolving when the file has been loaded.
+ */
 function loadVideo(path) {
   return new Promise((resolve, reject) => {
     fetch(path)
@@ -31,6 +49,13 @@ function loadVideo(path) {
   });
 }
 
+/**
+ * Load all available data currently implemented.
+ * @memberof loader
+ * @param  {string} folder Path to the prepro data folder
+ * @param  {object} config The prepro.json config object
+ * @return {Promise}       A promise resolving when everyting has been loaded.
+ */
 function loadAll(folder, config) {
   return new Promise((resolve, reject) => {
     const data = {};
@@ -66,4 +91,8 @@ function loadAll(folder, config) {
   });
 }
 
+/**
+ * Used to request web services.
+ * @module loader
+ */
 module.exports = loadAll;

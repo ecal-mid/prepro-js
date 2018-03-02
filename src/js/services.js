@@ -14,8 +14,13 @@ const servicesClasses = {
   'sift': Sift,
 };
 
+/**
+ * The Services dictionnary.
+ */
 class Services {
-  constructor(data) {
+  /**
+   */
+  constructor() {
     /**
      * Services dictionnary.
      * @type {Object}
