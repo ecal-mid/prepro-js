@@ -8,7 +8,15 @@ const DEFAULT_CONFIG_FILENAME = 'prepro.json';
 const DEFAULT_VIDEO_FILENAME = 'source.mov';
 
 /**
- * Main Prepro class
+ * Main Prepro class.
+ *
+ * This class is instanciated automatically in a global 'prepro' object.
+ *
+ * @example
+ * const prepro = new Prepro();
+ * prepro.load('prepro-video-export').then(() => {
+ *    prepro.play();
+ * });
  */
 class Prepro extends EventDispatcher {
   /**
@@ -23,7 +31,11 @@ class Prepro extends EventDispatcher {
     this.video = null;
     this.view = null;
 
-    // @private
+    /**
+     * The internal cache for currentFrame object
+     * @type {Number}
+     * @private
+     */
     this.currentFrame_ = 0;
     this.events_ = {};
   }

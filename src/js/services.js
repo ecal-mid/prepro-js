@@ -5,6 +5,11 @@ import Segmentation from './services/segmentation';
 import Sift from './services/sift';
 import Spectrogram from './services/spectrogram';
 
+/**
+ * Map service names to corresponding class.
+ * @type Object
+ * @private
+ */
 const servicesClasses = {
   'colors': Colors,
   'openpose': Openpose,

@@ -1,5 +1,6 @@
 /**
  * Minimalist Event Dispatcher
+ * @ignore
  */
 class EventDispatcher {
   /**
