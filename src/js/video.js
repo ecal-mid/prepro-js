@@ -30,6 +30,9 @@ class Video extends EventDispatcher {
    * Starts playback of the video.
    */
   play() {
+    if (this.interval_) {
+      return;
+    }
     this.el_.play();
     this.interval_ =
         setInterval(this.update.bind(this), 1000 / this.framerate_);
@@ -41,6 +44,7 @@ class Video extends EventDispatcher {
   pause() {
     this.el_.pause();
     clearInterval(this.interval_);
+    this.interval_ = false;
   }
 
   /**
