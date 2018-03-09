@@ -61,14 +61,15 @@ function loadAll(folder, config) {
     const data = {};
     const loaders = config.services.map((s) => {
       const name = s.name.split('2').pop();
-      if ([
-            'openpose',
-            'colors',
-            'spectrogram',
-            'flow',
-            'segmentation',
-            'sift',
-          ].indexOf(name) == -1) {
+      const services = config.services_filter || [
+        'openpose',
+        'colors',
+        'spectrogram',
+        'flow',
+        'segmentation',
+        'sift',
+      ];
+      if (services.indexOf(name) == -1) {
         return;
       }
       switch (s.type) {
