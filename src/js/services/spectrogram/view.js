@@ -1,12 +1,13 @@
-const tpl = require('./spectrogram_tpl.ejs');
-
-class SpectrogramView {
+class SpectrogramDebugView {
   constructor(container) {
     this.container = container;
 
     this.el = document.createElement('div');
     this.el.classList.add('prepro-block', 'prepro-spectrogram');
-    this.el.innerHTML = tpl();
+    this.el.innerHTML = `
+      <h1 class="prepro-title">Sound Spectrum</h1>
+      <canvas class="prepro-soundspectrum" width="300" height="200"></canvas>
+    `;
     container.appendChild(this.el);
 
     this.canvas = this.el.querySelector('canvas');
@@ -46,4 +47,4 @@ class SpectrogramView {
   }
 }
 
-module.exports = SpectrogramView;
+module.exports = SpectrogramDebugView;

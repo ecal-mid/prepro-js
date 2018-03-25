@@ -1,23 +1,16 @@
-import Colors from './services/colors';
-import Flow from './services/flow';
-import Openpose from './services/openpose';
-import Segmentation from './services/segmentation';
-import Sift from './services/sift';
-import Spectrogram from './services/spectrogram';
-
 /**
  * Map service names to corresponding class.
  * @type Object
  * @private
  */
-const servicesClasses = {
-  'colors': Colors,
-  'openpose': Openpose,
-  'spectrogram': Spectrogram,
-  'flow': Flow,
-  'segmentation': Segmentation,
-  'sift': Sift,
-};
+const services = [
+  'colors',
+  'openpose',
+  'spectrogram',
+  'flow',
+  'segmentation',
+  'sift',
+];
 
 /**
  * The Services dictionnary.
@@ -41,8 +34,9 @@ class Services {
    */
   setup(data) {
     for (let s in data) {
-      if (s in servicesClasses) {
-        this.services_[s] = new servicesClasses[s](data[s]);
+      if (services.indexOf(s) != -1) {
+        const ServiceClass = require(`./services/${s}/service`);
+        this.services_[s] = new ServiceClass(data[s]);
       }
     }
   }

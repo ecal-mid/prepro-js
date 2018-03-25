@@ -29,7 +29,7 @@ class Prepro extends EventDispatcher {
     this.config = {};
     this.data = [];
     this.video = null;
-    this.view = null;
+    this.debugView = null;
 
     /**
      * The internal cache for currentFrame object
@@ -84,7 +84,7 @@ class Prepro extends EventDispatcher {
    * @param {Element|String} el View container element or query selector.
    */
   addDebugView(el) {
-    this.view = new DebugView(this.video, el || document.body);
+    this.debugView = new DebugView(this.video, el || document.body);
   }
 
   /**
