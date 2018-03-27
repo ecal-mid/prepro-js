@@ -134,6 +134,12 @@
 
         fetch(`${example}/index.js`).then((r) => r.text()).then((txt) => {
           editor.getDoc().setValue(txt);
+          if (window.parent) {
+            window.parent.postMessage({
+              event: 'resize',
+              height: document.body.scrollHeight
+            }, '*');
+          }
         });
       }
 
