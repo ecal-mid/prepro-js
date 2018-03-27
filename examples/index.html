@@ -1,0 +1,149 @@
+<html>
+
+  <head>
+    <title>Prepro Examples</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:100,400" rel="stylesheet">
+    <link rel="stylesheet" href="_site/codemirror/codemirror.css">
+    <link rel="stylesheet" href="_site/codemirror/oceanic-next.css">
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html, body {
+        font-family: 'Roboto', sans-serif;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      section {
+        display: flex;
+        max-width: 960px;
+      }
+
+      h1 {
+        font-weight: 100;
+        text-transform: capitalize;
+      }
+
+      menu {
+        padding-left: 1em;
+        padding-right: 2em;
+        /* margin-top: 0; */
+      }
+      menu a {
+        display: block;
+        margin: 0.5em;
+        text-decoration: none;
+        color: grey;
+        font-size: 0.9em;
+      }
+      menu a.selected {
+        font-weight: bold;
+        color: black;
+      }
+
+      #prepro-container {
+        overflow: hidden;
+        width: 100vw;
+        height: 57vw;
+        max-width: 800px;
+        max-height: 450px;
+        border: none;
+      }
+
+      .CodeMirror {
+        height: auto;
+      }
+      .CodeMirror-scroll {
+        overflow-y: hidden;
+        overflow-x: auto;
+        height: auto;
+      }
+
+      .cm-s-oceanic-next.CodeMirror {
+        font-family: 'Roboto Mono', monospace;
+        font-size: 0.9em;
+        max-width: 800px;
+        background: #1d1d1d;
+        border-radius: 0 0 5px 5px;
+        padding: 30px 0 0 30px;
+      }
+      .cm-s-oceanic-next .CodeMirror-linenumber {
+        opacity: 0.4;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <section>
+      <menu>
+      </menu>
+      <main>
+        <h1 id="example-title"></h1>
+        <iframe id="prepro-container"></iframe>
+        <textarea id="code"></textarea>
+      </main>
+    <section>
+
+    <script src="_site/codemirror/codemirror.js"></script>
+    <script src="_site/codemirror/javascript.js"></script>
+    <script>
+      const examples = [
+        'basic',
+        'flow',
+        'segmentation',
+        'sift',
+        'sift_p5'
+      ];
+      let editor;
+
+      const menuEl = document.querySelector('menu');
+      for (let e of examples) {
+        menuEl.innerHTML += `<a href="#${e}" class="bt-${e}">${e}</a>`;
+      }
+      for (let a of document.querySelectorAll('menu a')) {
+        a.addEventListener('click', (evt) => {
+          show(evt.currentTarget.innerHTML);
+        });
+      }
+
+      function show(example) {
+        const h1 = document.getElementById('example-title');
+        h1.innerHTML = example;
+
+        for (let a of document.querySelectorAll('menu a')) {
+          a.classList.remove('selected');
+        }
+        const a = document.querySelector('.bt-' + example);
+        a.classList.add('selected');
+
+        const iframe = document.getElementById('prepro-container');
+        iframe.src = example;
+
+        const el = document.getElementById('code');
+
+        if (!editor) {
+          editor = CodeMirror.fromTextArea(el, {
+            theme: 'oceanic-next',
+            viewportMargin: Infinity
+          });
+        }
+
+        fetch(`${example}/index.js`).then((r) => r.text()).then((txt) => {
+          editor.getDoc().setValue(txt);
+        });
+      }
+
+      let example = window.location.hash.substr(1);
+      if (!example) {
+        example = window.location.hash = examples[0];
+      }
+
+      show(example);
+    </script>
+  </body>
+
+</html>

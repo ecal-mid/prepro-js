@@ -84,6 +84,9 @@ class Prepro extends EventDispatcher {
    * @param {Element|String} el View container element or query selector.
    */
   addDebugView(el) {
+    if (typeof el == 'string') {
+      el = document.querySelector(el);
+    }
     this.debugView = new DebugView(this.video, el || document.body);
   }
 
