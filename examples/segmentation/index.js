@@ -47,4 +47,4 @@ function update() {
   ctx.putImageData(imData, 0, 0);
 }
 
-prepro.load('../_data/test-video', 'segmentation').then(setup);
+prepro.load('../_data/test-video', ['segmentation']).then(setup);

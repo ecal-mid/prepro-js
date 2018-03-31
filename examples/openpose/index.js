@@ -120,4 +120,4 @@ function resize() {
 }
 
 // Start by loading the data and call our setup function when complete.
-prepro.load('../_data/test-video', 'openpose').then(setup);
+prepro.load('../_data/test-video', ['openpose']).then(setup);

@@ -4,7 +4,7 @@ const lines = [];
 
 function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
-  prepro.load('../_data/test-video', 'flow').then(start);
+  prepro.load('../_data/test-video', ['flow']).then(start);
 }
 
 function start() {

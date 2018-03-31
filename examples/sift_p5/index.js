@@ -5,7 +5,7 @@ function setup() {
   createCanvas(window.innerWidth, window.innerHeight);
 
   // Start by loading the data and call our setup function when complete
-  prepro.load('../_data/test-video', 'sift').then(start);
+  prepro.load('../_data/test-video', ['sift']).then(start);
 }
 
 function start() {
