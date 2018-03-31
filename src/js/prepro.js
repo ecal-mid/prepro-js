@@ -56,7 +56,8 @@ class Prepro extends EventDispatcher {
             this.config['services_filter'] = services;
             const videoFile = folder + '/' + DEFAULT_VIDEO_FILENAME;
             this.video = new Video(videoFile, config);
-            this.video.addEventListener('update', this.dispatch.bind(this));
+            this.video.addEventListener(
+                'update', (e) => this.dispatch('update', e));
             loadAll(folder, config)
                 .then((data) => {
                   this.data = data;

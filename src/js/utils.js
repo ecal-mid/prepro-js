@@ -30,7 +30,7 @@ class EventDispatcher {
     const handlers = this.handlers_[event];
     if (handlers) {
       for (let handler of handlers) {
-        handler(event, data);
+        handler(data);
       }
     }
   }
