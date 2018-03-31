@@ -5,8 +5,10 @@ function setup() {
   // prepro.showVideo('#prepro');
   prepro.addDebugView();
   prepro.addEventListener('update', update);
-  window.addEventListener('click', () => {
-    prepro.video.play();
+  prepro.addEventListener('processed', (service) => {
+    if (service == 'segmentation') {
+      prepro.play();
+    }
   });
 }
 
