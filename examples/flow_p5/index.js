@@ -10,7 +10,11 @@ function setup() {
 function start() {
   prepro.showVideo('#prepro');
   prepro.addEventListener('update', update);
-  prepro.play();
+  prepro.addEventListener('processed', (service) => {
+    if (service == 'flow') {
+      prepro.play();
+    }
+  });
 }
 
 function update() {
