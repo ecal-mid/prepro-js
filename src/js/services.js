@@ -40,8 +40,10 @@ class Services extends EventDispatcher {
       if (services.indexOf(s) != -1) {
         const ServiceClass = require(`./services/${s}/service`);
         this.services_[s] = new ServiceClass(data[s]);
-        this.services_[s].addEventListener(
-            'processed', (e) => this.dispatch('processed', e));
+        if (this.services_[s].addEventListener) {
+          this.services_[s].addEventListener(
+              'ready', (e) => this.dispatch('ready', e));
+        }
       }
     }
   }

@@ -5,7 +5,7 @@ function setup() {
   // prepro.showVideo('#prepro');
   prepro.addDebugView();
   prepro.addEventListener('update', update);
-  prepro.addEventListener('processed', (service) => {
+  prepro.addEventListener('ready', (service) => {
     if (service == 'segmentation') {
       prepro.play();
     }
