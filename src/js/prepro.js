@@ -62,6 +62,8 @@ class Prepro extends EventDispatcher {
                 .then((data) => {
                   this.data = data;
                   this.services.setup(data);
+                  this.services.addEventListener(
+                      'processed', (e) => this.dispatch('processed', e));
                   resolve();
                 })
                 .catch(reject);

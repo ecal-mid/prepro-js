@@ -1,5 +1,8 @@
-class Flow {
+import {EventDispatcher} from '../../utils';
+
+class Flow extends EventDispatcher {
   constructor(data) {
+    super();
     this.frames = [];
     this.video_ = null;
     this.data = data;
@@ -41,6 +44,7 @@ class Flow {
       this.currLoaded_++;
       if (this.currLoaded_ >= numFrames) {
         this.video_.removeEventListener('seeked', drawNextFrame);
+        this.dispatch('processed', 'flow');
       } else {
         this.video_.currentTime = this.currLoaded_ / prepro.config.framerate;
       }

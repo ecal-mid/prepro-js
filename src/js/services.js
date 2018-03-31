@@ -1,3 +1,5 @@
+import {EventDispatcher} from './utils';
+
 /**
  * Map service names to corresponding class.
  * @type Object
@@ -15,7 +17,7 @@ const services = [
 /**
  * The Services dictionnary.
  */
-class Services {
+class Services extends EventDispatcher {
   /**
    */
   constructor() {
@@ -24,6 +26,7 @@ class Services {
      * @type {Object}
      * @private
      */
+    super();
     this.services_ = {};
   }
 
@@ -37,6 +40,8 @@ class Services {
       if (services.indexOf(s) != -1) {
         const ServiceClass = require(`./services/${s}/service`);
         this.services_[s] = new ServiceClass(data[s]);
+        this.services_[s].addEventListener(
+            'processed', (e) => this.dispatch('processed', e));
       }
     }
   }
