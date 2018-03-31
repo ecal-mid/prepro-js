@@ -35,7 +35,7 @@ function update() {
   const margin = 5;
 
   ctx.beginPath();
-  ctx.lineWidth = 2;
+  ctx.lineWidth = 1;
   ctx.strokeStyle = 'white';
   for (let y = 0; y < flow.canvas.height; y += margin) {
     for (let x = 0; x < flow.canvas.width; x += margin) {
@@ -57,4 +57,4 @@ function resize() {
   canvas.height = window.innerHeight;
 }
 
-prepro.load('../_data/test-video').then(setup);
+prepro.load('../_data/test-video', 'flow').then(setup);
