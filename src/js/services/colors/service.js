@@ -1,3 +1,5 @@
+const BaseService = require('../BaseService');
+
 /**
  * Class for each color frame.
  * It's an array of colors represented as an hexadecimal string.
@@ -17,28 +19,22 @@ class ColorsFrame extends Array {
 }
 
 /**
- * Colors Class
+ * Processed Colors Frames computed by the Colors service.
  */
-class Colors {
+class Colors extends BaseService {
   constructor(data) {
-    this.frames = [];
-    this.data = data;
+    super(data);
   }
 
-  getFrame(i) {
-    return this.frames[i];
-  }
-
+  /**
+   * @override
+   */
   set data(d) {
     this.data_ = d;
     this.frames = [];
     for (let frameColors of d) {
       this.frames.push(new ColorsFrame(frameColors));
     }
-  }
-
-  get data() {
-    return this.data_;
   }
 }
 

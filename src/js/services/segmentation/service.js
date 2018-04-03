@@ -1,38 +1,21 @@
-import {EventDispatcher} from '../../utils';
+import BaseService from '../BaseService';
 
-class Segmentation extends EventDispatcher {
-  constructor(data) {
-    super();
-    this.frames = [];
-    this.video_ = null;
-    this.data = data;
-    this.currLoaded_ = 0;
-  }
-
-  getFrame(i) {
-    return this.frames[i];
-  }
-
-  getStatus() {
-    return {
-      loaded: this.currLoaded_,
-      total: this.frames.length,
-    };
-  }
-
+/**
+ * Processed Segmentation Frames computed by the MaskRCNN service.
+ */
+class Segmentation extends BaseService {
   set data(video) {
-    this.video_ = video;
     this.frames = [];
 
-    this.video_.pause();
+    video.pause();
 
     const numFrames = video.duration * prepro.config.framerate;
 
     // create frames;
     for (let i = 0; i < numFrames; i++) {
       const cnv = document.createElement('canvas');
-      cnv.width = this.video_.videoWidth;
-      cnv.height = this.video_.videoHeight;
+      cnv.width = video.videoWidth;
+      cnv.height = video.videoHeight;
       const ctx = cnv.getContext('2d');
       this.frames.push(ctx);
     }
@@ -40,24 +23,20 @@ class Segmentation extends EventDispatcher {
     // draw frame function
     const drawNextFrame = () => {
       const ctx = this.frames[this.currLoaded_];
-      ctx.drawImage(this.video_, 0, 0, ctx.canvas.width, ctx.canvas.height);
+      ctx.drawImage(video, 0, 0, ctx.canvas.width, ctx.canvas.height);
       this.currLoaded_++;
       if (this.currLoaded_ >= numFrames) {
-        this.video_.removeEventListener('seeked', drawNextFrame);
+        video.removeEventListener('seeked', drawNextFrame);
         this.dispatch('ready', 'segmentation');
       } else {
-        this.video_.currentTime = this.currLoaded_ / prepro.config.framerate;
+        video.currentTime = this.currLoaded_ / prepro.config.framerate;
       }
     };
 
     // launch draw frame pipeline
     this.currLoaded_ = 0;
-    this.video_.addEventListener('seeked', drawNextFrame);
-    this.video_.currentTime = this.currLoaded_ / prepro.config.framerate;
-  }
-
-  get data() {
-    return this.video_;
+    video.addEventListener('seeked', drawNextFrame);
+    video.currentTime = this.currLoaded_ / prepro.config.framerate;
   }
 }
 

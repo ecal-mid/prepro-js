@@ -1,15 +1,11 @@
-class Spectrogram {
-  constructor(data) {
-    this.frames = [];
-    this.data = data;
-  }
+const BaseService = require('../BaseService');
 
-  getFrame(i) {
-    return this.frames[i];
-  }
-
+/**
+ * Processed Audio Spectrogram Frames computed by the Scipy Spectrogram service.
+ */
+class Spectrogram extends BaseService {
   set data(d) {
-    this.data_ = d;
+    super.data = d;
     const w = d.width;
     const h = d.height;
 
@@ -28,10 +24,6 @@ class Spectrogram {
       }
       this.frames.push(frame);
     }
-  }
-
-  get data() {
-    return this.data_;
   }
 }
 

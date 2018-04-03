@@ -1,20 +1,14 @@
-class Sift {
-  constructor(data) {
-    this.frames = [];
-    this.data = data;
-  }
+import BaseService from '../BaseService';
 
-  getFrame(i) {
-    return this.frames[i];
-  }
-
+/**
+ * Processed SIFT Frames computed by the OpenCV Sift service.
+ */
+class Sift extends BaseService {
   set data(d) {
-    this.data_ = d;
-    this.frames = d;
-  }
-
-  get data() {
-    return this.data_;
+    super.data = d;
+    for (let i = 0; i < d.length; i++) {
+      this.frames[i] = d[i];
+    }
   }
 }
 

@@ -12,10 +12,18 @@ const DEFAULT_VIDEO_FILENAME = 'source.mov';
  *
  * This class is instanciated automatically in a global 'prepro' object.
  *
- * @example
- * const prepro = new Prepro();
+ * It dispatch and propagate the following events:
+ *  - `ready` : Dispatched when a service has finished parsing its data.
+ *  - `update` : Dispatched when the video frame has changed.
+ *
+ * @example <caption>Preloading the data and play the video:</caption>
  * prepro.load('prepro-video-export').then(() => {
  *    prepro.play();
+ * });
+ *
+ * @example <caption>Listening for a service ready event:</caption>
+ * prepro.addEventListener('ready', (service) => {
+ *    console.log(service);
  * });
  */
 class Prepro extends EventDispatcher {

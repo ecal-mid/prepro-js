@@ -1,6 +1,6 @@
 /**
  * Loads a JSON file.
- * @memberof loader
+ * @ignore
  * @param  {string} path The path of the image to load.
  * @return {Promise}     A Promise resolving when the file has been loaded.
  */
@@ -10,7 +10,7 @@ function loadJSON(path) {
 
 /**
  * Loads an image.
- * @memberof loader
+ * @ignore
  * @param  {string} path The path of the image to load.
  * @return {Promise}     A Promise resolving when the file has been loaded.
  */
@@ -26,7 +26,7 @@ function loadImage(path) {
 
 /**
  * Loads a video file
- * @memberof loader
+ * @ignore
  * @param  {string} path The path of the video to load.
  * @return {Promise}     A Promise resolving when the file has been loaded.
  */
@@ -51,7 +51,7 @@ function loadVideo(path) {
 
 /**
  * Load all available data currently implemented.
- * @memberof loader
+ * @ignore
  * @param  {string} folder Path to the prepro data folder
  * @param  {object} config The prepro.json config object
  * @return {Promise}       A promise resolving when everyting has been loaded.
@@ -94,6 +94,6 @@ function loadAll(folder, config) {
 
 /**
  * Used to request web services.
- * @module loader
+ * @ignore
  */
 module.exports = loadAll;

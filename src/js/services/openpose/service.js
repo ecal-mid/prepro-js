@@ -1,13 +1,9 @@
-class Openpose {
-  constructor(data) {
-    this.frames = [];
-    this.data = data;
-  }
+import BaseService from '../BaseService';
 
-  getFrame(i) {
-    return this.frames[i];
-  }
-
+/**
+ * Processed Openpose Frames computed by the Openpose service.
+ */
+class Openpose extends BaseService {
   set data(d) {
     this.data_ = d;
     this.frames = [];
@@ -16,10 +12,6 @@ class Openpose {
     for (let i = 1; i < total + 1; i++) {
       this.frames[i] = d[i]['people'];
     }
-  }
-
-  get data() {
-    return this.data_;
   }
 }
 
