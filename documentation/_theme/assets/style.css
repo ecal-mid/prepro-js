@@ -142,6 +142,10 @@ table {
   font-family: Roboto Mono;
 }
 
+#split-left .py1-ul li {
+  padding: 2px 0;
+}
+
 #split-left .mb1, #split-left .mb0, #split-left input {
   display: none;
 }

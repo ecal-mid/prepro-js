@@ -21,6 +21,7 @@ toc:
   - name: prepro.currentFrame.flow
   - Flow
   - name: prepro.currentFrame.openpose
+    file: openpose_service.md
   - Openpose
   - name: prepro.currentFrame.segmentation
   - Segmentation
