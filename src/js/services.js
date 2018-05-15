@@ -12,6 +12,7 @@ const services = [
   'flow',
   'segmentation',
   'sift',
+  'depth',
 ];
 
 /**
@@ -40,7 +41,6 @@ class Services extends EventDispatcher {
       if (services.indexOf(s) != -1) {
         const ServiceClass = require(`./services/${s}/service`);
         this.services_[s] = new ServiceClass(data[s]);
-        console.log(ServiceClass, data[s]);
         if (this.services_[s].addEventListener) {
           this.services_[s].addEventListener(
               'ready', (e) => this.dispatch('ready', e));
