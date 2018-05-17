@@ -31,3 +31,5 @@ toc:
   - Spectrogram
   - name: prepro.currentFrame.depth
   - Depth
+  - name: prepro.currentFrame.detection
+  - Detection

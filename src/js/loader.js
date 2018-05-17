@@ -69,6 +69,7 @@ function loadAll(folder, config) {
         'segmentation',
         'sift',
         'depth',
+        'detection',
       ];
       if (services.indexOf(name) == -1) {
         return;

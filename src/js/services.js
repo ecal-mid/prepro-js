@@ -13,6 +13,7 @@ const services = [
   'segmentation',
   'sift',
   'depth',
+  'detection',
 ];
 
 /**
