@@ -7,6 +7,7 @@ const ctx = canvas.getContext('2d');
 function setup() {
   // Display the video in the #prepro div
   prepro.showVideo('#prepro');
+  prepro.addDebugView();
 
   // Listen to prepro update events, and handle them with the updqte function.
   prepro.addEventListener('update', update);
@@ -23,7 +24,7 @@ function setup() {
  * The update event handler
  */
 function update() {
-  // Retrieve the OpenPose object for the current frame
+  // Retrieve the Detection object for the current frame
   const detection = prepro.currentFrame.detection;
   if (!detection) {
     return;
@@ -36,12 +37,13 @@ function update() {
   const w = ctx.canvas.width;
   const h = ctx.canvas.height;
   for (let box of detection) {
+    if (box.category == 'toaster') {
+      console.log(box);
+    }
     ctx.strokeStyle = 'blue';
     ctx.lineWidth = 4;
     ctx.beginPath();
-    ctx.rect(
-        box.x * w, box.y * h, (box.x + box.width) * w,
-        (box.y + box.height) * h);
+    ctx.rect(box.x * w, box.y * h, box.width * w, box.height * h);
     ctx.stroke();
     ctx.font = 'bold 12px sans-serif';
     ctx.fillStyle = 'blue';
@@ -59,4 +61,4 @@ function resize() {
 }
 
 // Start by loading the data and call our setup function when complete.
-prepro.load('../_data/detection-test', ['detection']).then(setup);
+prepro.load('../_data/test-video', ['detection']).then(setup);
