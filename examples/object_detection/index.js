@@ -37,9 +37,6 @@ function update() {
   const w = ctx.canvas.width;
   const h = ctx.canvas.height;
   for (let box of detection) {
-    if (box.category == 'toaster') {
-      console.log(box);
-    }
     ctx.strokeStyle = 'blue';
     ctx.lineWidth = 4;
     ctx.beginPath();
