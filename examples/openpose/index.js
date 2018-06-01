@@ -62,7 +62,7 @@ function update() {
 
   // Draw a blue circle for each keypoint in the current frame
   for (const pose of openpose) {
-    const pts = pose['pose_keypoints'];
+    const pts = pose['pose_keypoints'] || pose['pose_keypoints_2d'];
     drawPose(pts);
   }
 

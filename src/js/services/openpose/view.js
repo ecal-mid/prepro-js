@@ -39,7 +39,7 @@ class OpenposeView {
       [1, 11, 12, 13],
     ];
     for (let pose of data) {
-      const pts = pose['pose_keypoints'];
+      const pts = pose['pose_keypoints'] || pose['pose_keypoints_2d'];
       for (let i = 0; i < pts.length / 3; i++) {
         const x = pts[i * 3];
         const y = pts[i * 3 + 1];
